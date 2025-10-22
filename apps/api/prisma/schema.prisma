@@ -4,7 +4,7 @@ generator client {
 
 datasource db {
   provider = "sqlite"
-  url      = env("DATABASE_URL")
+  url      = "file:./dev.db"
 }
 
 model KeywordRule {
@@ -50,10 +50,10 @@ model VoiceInteraction {
 model BusinessProfile {
   id          String   @id @default(cuid())
   name        String
-  services    String[] // Array of services
+  services    String   // Comma-separated services
   hours       String
   contact     String
-  pricing     Json?    // JSON object for pricing
+  pricing     String?  // JSON string for pricing
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
 

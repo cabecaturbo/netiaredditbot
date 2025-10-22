@@ -7,6 +7,13 @@ settings:
 importers:
 
   .:
+    dependencies:
+      cors:
+        specifier: ^2.8.5
+        version: 2.8.5
+      express:
+        specifier: ^4.18.2
+        version: 4.21.2
     devDependencies:
       concurrently:
         specifier: ^8.2.2
