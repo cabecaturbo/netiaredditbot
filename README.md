@@ -4,7 +4,7 @@ This repository contains a Reddit bot (`apps/reddit-bot`) with natural voice rec
 
 ## Features
 
-- **🎤 Natural Voice Reception**: Speech-to-text and text-to-speech capabilities using OpenAI Whisper and TTS
+
 - **🔍 Keyword Monitoring**: Respond to specific keywords across Reddit subreddits
 - **🤖 AI-Powered Responses**: Natural language responses using OpenAI GPT-4
 - **⏰ 24/7 Availability**: Never miss relevant discussions about your business
