@@ -1,0 +1,39 @@
+services:
+  - type: web
+    name: netia-reddit-bot-api
+    env: node
+    buildCommand: npm install && npm run build
+    startCommand: npm start
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: DATABASE_URL
+        fromDatabase:
+          name: netia-reddit-bot-db
+          property: connectionString
+      - key: REDDIT_CLIENT_ID
+        sync: false
+      - key: REDDIT_CLIENT_SECRET
+        sync: false
+      - key: REDDIT_USERNAME
+        sync: false
+      - key: REDDIT_PASSWORD
+        sync: false
+      - key: AI_API_KEY
+        sync: false
+      - key: VOICE_API_KEY
+        sync: false
+
+  - type: web
+    name: netia-reddit-bot-admin
+    env: node
+    buildCommand: cd apps/admin && npm install && npm run build
+    startCommand: cd apps/admin && npm start
+    envVars:
+      - key: NODE_ENV
+        value: production
+
+databases:
+  - name: netia-reddit-bot-db
+    databaseName: netia_reddit_bot
+    user: netia_user

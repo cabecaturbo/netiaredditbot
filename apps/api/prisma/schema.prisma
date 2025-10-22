@@ -1,0 +1,61 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model KeywordRule {
+  id               String   @id @default(cuid())
+  keyword          String
+  subreddit        String?
+  responseTemplate String
+  isActive         Boolean  @default(true)
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
+
+  @@map("keyword_rules")
+}
+
+model BotActivity {
+  id            String   @id @default(cuid())
+  postId        String?
+  commentId     String?
+  keyword       String
+  response      String
+  subreddit     String
+  timestamp     DateTime @default(now())
+  success       Boolean
+
+  @@map("bot_activities")
+}
+
+model VoiceInteraction {
+  id            String   @id @default(cuid())
+  postId        String?
+  commentId     String?
+  subreddit     String
+  audioInput    String?  // Base64 encoded audio
+  transcription String?
+  aiResponse    String?
+  audioOutput   String?  // Base64 encoded audio response
+  timestamp     DateTime @default(now())
+  success       Boolean
+
+  @@map("voice_interactions")
+}
+
+model BusinessProfile {
+  id          String   @id @default(cuid())
+  name        String
+  services    String[] // Array of services
+  hours       String
+  contact     String
+  pricing     Json?    // JSON object for pricing
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@map("business_profiles")
+}
