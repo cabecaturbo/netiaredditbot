@@ -1,0 +1,64 @@
+{
+  "version": 2,
+  "builds": [
+    {
+      "src": "apps/api/src/index.ts",
+      "use": "@vercel/node",
+      "config": {
+        "includeFiles": ["apps/api/prisma/**"]
+      }
+    },
+    {
+      "src": "apps/reddit-bot/src/index.ts",
+      "use": "@vercel/node",
+      "config": {
+        "maxDuration": 300
+      }
+    },
+    {
+      "src": "apps/discord-bot/src/index.ts",
+      "use": "@vercel/node",
+      "config": {
+        "maxDuration": 300
+      }
+    }
+  ],
+  "routes": [
+    {
+      "src": "/api/(.*)",
+      "dest": "/apps/api/src/index.ts"
+    },
+    {
+      "src": "/reddit-bot",
+      "dest": "/apps/reddit-bot/src/index.ts"
+    },
+    {
+      "src": "/discord-bot",
+      "dest": "/apps/discord-bot/src/index.ts"
+    }
+  ],
+  "crons": [
+    {
+      "path": "/reddit-bot",
+      "schedule": "*/3 * * * *"
+    },
+    {
+      "path": "/discord-bot",
+      "schedule": "*/5 * * * *"
+    }
+  ],
+  "env": {
+    "NODE_ENV": "production"
+  },
+  "functions": {
+    "apps/api/src/index.ts": {
+      "maxDuration": 30
+    },
+    "apps/reddit-bot/src/index.ts": {
+      "maxDuration": 300
+    },
+    "apps/discord-bot/src/index.ts": {
+      "maxDuration": 300
+    }
+  }
+}

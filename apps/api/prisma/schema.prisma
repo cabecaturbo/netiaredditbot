@@ -47,6 +47,33 @@ model VoiceInteraction {
   @@map("voice_interactions")
 }
 
+model DiscordActivity {
+  id          String   @id @default(cuid())
+  messageId   String   @unique
+  guildId     String
+  channelId   String
+  authorId    String
+  content     String
+  response    String?
+  keywordId   String
+  timestamp   DateTime @default(now())
+  success     Boolean
+
+  @@map("discord_activities")
+}
+
+model DiscordConfig {
+  id          String   @id @default(cuid())
+  guildId     String   @unique
+  guildName   String
+  enabled     Boolean  @default(true)
+  channels    String   // JSON array of channel IDs
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@map("discord_configs")
+}
+
 model BusinessProfile {
   id          String   @id @default(cuid())
   name        String

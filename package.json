@@ -8,9 +8,9 @@
     "packages/*"
   ],
   "scripts": {
-    "dev": "concurrently \"pnpm --filter reddit-bot dev\" \"pnpm --filter api dev\" \"pnpm --filter admin dev\"",
-    "build": "pnpm --filter shared build && pnpm --filter ai-client build && pnpm --filter reddit-client build && pnpm --filter reddit-bot build && pnpm --filter api build && pnpm --filter admin build",
-    "start": "concurrently \"pnpm --filter reddit-bot start\" \"pnpm --filter api start\"",
+    "dev": "concurrently \"pnpm --filter reddit-bot dev\" \"pnpm --filter discord-bot dev\" \"pnpm --filter api dev\" \"pnpm --filter admin dev\"",
+    "build": "pnpm --filter shared build && pnpm --filter ai-client build && pnpm --filter reddit-client build && pnpm --filter discord-client build && pnpm --filter reddit-bot build && pnpm --filter discord-bot build && pnpm --filter api build && pnpm --filter admin build",
+    "start": "concurrently \"pnpm --filter reddit-bot start\" \"pnpm --filter discord-bot start\" \"pnpm --filter api start\"",
     "prisma:push": "pnpm --filter api prisma db push",
     "prisma:generate": "pnpm --filter api prisma generate",
     "setup": "pnpm install && pnpm prisma:generate",

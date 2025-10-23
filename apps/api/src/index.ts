@@ -10,6 +10,7 @@ import keywordRoutes from './routes/keywords';
 import activityRoutes from './routes/activities';
 import voiceRoutes from './routes/voice';
 import profileRoutes from './routes/profile';
+import discordRoutes from './routes/discord';
 
 dotenv.config();
 
@@ -44,6 +45,7 @@ app.use('/api/keywords', keywordRoutes);
 app.use('/api/activities', activityRoutes);
 app.use('/api/voice', voiceRoutes);
 app.use('/api/profile', profileRoutes);
+app.use('/api/discord', discordRoutes);
 
 // Error handling middleware
 app.use((err: any, req: express.Request, res: express.Response, next: express.NextFunction) => {

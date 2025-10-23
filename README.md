@@ -1,16 +1,17 @@
-# Netia Reddit Bot
+# Netia Marketing Bot
 
-This repository contains a Reddit bot (`apps/reddit-bot`) with natural voice reception capabilities, API backend (`apps/api`), and admin dashboard (`apps/admin`). Built for Netia's AI receptionist services.
+This repository contains a unified marketing bot that monitors both Reddit (`apps/reddit-bot`) and Discord (`apps/discord-bot`) with natural voice reception capabilities, API backend (`apps/api`), and admin dashboard (`apps/admin`). Built for Netia's AI receptionist services.
 
 ## Features
 
-
-- **🔍 Keyword Monitoring**: Respond to specific keywords across Reddit subreddits
+- **🔍 Multi-Platform Monitoring**: Respond to keywords across Reddit subreddits and Discord servers
 - **🤖 AI-Powered Responses**: Natural language responses using OpenAI GPT-4
 - **⏰ 24/7 Availability**: Never miss relevant discussions about your business
 - **📊 Admin Dashboard**: Manage keywords, monitor activities, and configure voice settings
 - **🔗 Business Integration**: Connects with your existing Netia business profile
 - **🎯 Voice Conversations**: Users can have natural voice conversations on Reddit
+- **💬 Discord Support**: Real-time monitoring and responses on Discord servers
+- **📈 Analytics**: Track performance across both platforms
 
 ## Quick start
 
@@ -20,11 +21,11 @@ This repository contains a Reddit bot (`apps/reddit-bot`) with natural voice rec
 4. Start all apps
 
 ```bash
-npm run prisma:push
-npm run dev
+pnpm run prisma:push
+pnpm run dev
 ```
 
-API runs on :8080, Admin on :3000 (Next.js). See `apps/api/src/routes` for endpoints.
+API runs on :8080, Admin on :3000 (Next.js). Reddit bot and Discord bot run in background. See `apps/api/src/routes` for endpoints.
 
 ## About
 
@@ -54,6 +55,12 @@ VOICE_MODEL=whisper-1
 TTS_MODEL=tts-1
 VOICE_ENABLED=true
 
+# Discord Bot Configuration
+DISCORD_BOT_TOKEN=your_discord_bot_token
+DISCORD_APPLICATION_ID=your_discord_application_id
+DISCORD_GUILD_IDS=guild_id_1,guild_id_2,guild_id_3
+DISCORD_ENABLED=true
+
 # Database Configuration
 DATABASE_URL=postgresql://username:password@localhost:5432/netia_reddit_bot
 ```
@@ -68,7 +75,16 @@ pnpm prisma:generate
 pnpm prisma:push
 ```
 
-### 5. Start Development
+### 5. Discord Bot Setup
+
+1. Go to [Discord Developer Portal](https://discord.com/developers/applications)
+2. Create new application "Netia Marketing Bot"
+3. Create bot and copy token to `DISCORD_BOT_TOKEN`
+4. Enable "Message Content Intent" in bot settings
+5. Generate invite URL with permissions: Read Messages, Send Messages
+6. Join target Discord servers (see `docs/DISCORD_SETUP.md`)
+
+### 6. Start Development
 
 ```bash
 # Start all services
@@ -79,19 +95,22 @@ This will start:
 - **API Server**: http://localhost:8080
 - **Admin Dashboard**: http://localhost:3000
 - **Reddit Bot**: Background monitoring service
+- **Discord Bot**: Background monitoring service
 
 ## Project Structure
 
 ```
-netia-reddit-bot/
+netia-marketing-bot/
 ├── apps/
-│   ├── reddit-bot/           # Main Reddit bot application
+│   ├── reddit-bot/           # Reddit bot application
+│   ├── discord-bot/          # Discord bot application
 │   ├── api/                  # API backend with voice endpoints
 │   └── admin/                # Admin dashboard
 ├── packages/
 │   ├── shared/               # Shared types and utilities
 │   ├── ai-client/            # AI and voice client
-│   └── reddit-client/        # Reddit API wrapper
+│   ├── reddit-client/        # Reddit API wrapper
+│   └── discord-client/       # Discord API wrapper
 ├── docs/                     # Documentation
 └── env.example              # Environment template
 ```
@@ -138,8 +157,16 @@ Access the admin dashboard at http://localhost:3000 to:
 - `DELETE /api/keywords/:id` - Delete keyword rule
 
 ### Activity Monitoring
-- `GET /api/activities` - Get bot activities
-- `GET /api/activities/stats` - Get activity statistics
+- `GET /api/activities` - Get Reddit bot activities
+- `GET /api/activities/stats` - Get Reddit activity statistics
+
+### Discord Management
+- `GET /api/discord/activities` - Get Discord bot activities
+- `GET /api/discord/activities/stats` - Get Discord activity statistics
+- `GET /api/discord/configs` - Get Discord server configurations
+- `POST /api/discord/configs` - Create Discord server configuration
+- `PUT /api/discord/configs/:id` - Update Discord server configuration
+- `DELETE /api/discord/configs/:id` - Delete Discord server configuration
 
 ## Reddit API Setup
 

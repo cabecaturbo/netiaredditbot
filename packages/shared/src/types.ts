@@ -60,6 +60,34 @@ export const VoiceResponseSchema = z.object({
   audio_response: z.instanceof(Buffer),
 });
 
+// Discord Types
+export const DiscordMessageSchema = z.object({
+  id: z.string(),
+  content: z.string(),
+  author: z.object({
+    id: z.string(),
+    username: z.string(),
+    discriminator: z.string(),
+  }),
+  channelId: z.string(),
+  guildId: z.string(),
+  timestamp: z.date(),
+  url: z.string(),
+});
+
+export const DiscordActivitySchema = z.object({
+  id: z.string(),
+  messageId: z.string(),
+  guildId: z.string(),
+  channelId: z.string(),
+  authorId: z.string(),
+  content: z.string(),
+  response: z.string().optional(),
+  keywordId: z.string(),
+  timestamp: z.date(),
+  success: z.boolean(),
+});
+
 // Business Profile Types
 export const BusinessProfileSchema = z.object({
   name: z.string(),
@@ -83,6 +111,8 @@ export type KeywordRule = z.infer<typeof KeywordRuleSchema>;
 export type BotActivity = z.infer<typeof BotActivitySchema>;
 export type VoiceMessage = z.infer<typeof VoiceMessageSchema>;
 export type VoiceResponse = z.infer<typeof VoiceResponseSchema>;
+export type DiscordMessage = z.infer<typeof DiscordMessageSchema>;
+export type DiscordActivity = z.infer<typeof DiscordActivitySchema>;
 export type BusinessProfile = z.infer<typeof BusinessProfileSchema>;
 export type ApiResponse<T = any> = z.infer<typeof ApiResponseSchema> & { data?: T };
 

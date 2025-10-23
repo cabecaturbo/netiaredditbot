@@ -1,0 +1,27 @@
+{
+  "name": "@netia/discord-client",
+  "version": "1.0.0",
+  "description": "Discord client for Netia marketing bot",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsc --watch"
+  },
+  "dependencies": {
+    "discord.js": "^14.14.1",
+    "dotenv": "^16.3.1"
+  },
+  "devDependencies": {
+    "typescript": "^5.3.3",
+    "@types/node": "^20.10.5"
+  },
+  "keywords": [
+    "discord",
+    "bot",
+    "netia",
+    "marketing"
+  ],
+  "author": "Netia Team",
+  "license": "MIT"
+}
